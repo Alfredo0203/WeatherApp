@@ -2,7 +2,7 @@ var speed = 0;
 var number = document.getElementById("velocidad").value
 var prevSpeed = 0;
 var currentScale = 1;
-
+var contador = parseInt(document.getElementById("velocidad").value);
 function increaseSpeed() {
     if (speed < 180) {
         speed = speed + 10;
@@ -22,11 +22,14 @@ function reloadPageWithDelay(delay) {
 
 // Llama a la función para recargar la página después de un cierto tiempo (por ejemplo, 3000 ms = 3 segundos)
 reloadPageWithDelay(30000);
-
-while(speed < parseInt(number *4)) {
-   
+contador = contador *4;
+while(speed < contador) {
+    if(speed > contador) {
+        break;
+    }
     increaseSpeed()
     console.log(speed)
+   
 }
 
 function addClass() {
