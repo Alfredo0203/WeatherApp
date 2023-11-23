@@ -3,11 +3,11 @@
 function conectar(){
     $servidor = "localhost";
     $usuario = "root";
-    $password = "root";
+    $password = "";
     $base_datos = "estacion1";
     
     // Crear una conexión con la base de datos
-    $conn = mysqli_connect($servidor, $usuario, $password, $base_datos);
+    $con = mysqli_connect($servidor, $usuario, $password, $base_datos);
     
     // Verificar si hubo errores en la conexión
     if (mysqli_connect_errno()) {
@@ -16,7 +16,7 @@ function conectar(){
     }
     
     // Devolver la conexión establecida
-    return $conn;
+    return $con;
 }
 ?>
 

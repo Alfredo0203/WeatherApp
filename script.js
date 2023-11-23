@@ -21,10 +21,10 @@ function reloadPageWithDelay(delay) {
 }
 
 // Llama a la función para recargar la página después de un cierto tiempo (por ejemplo, 3000 ms = 3 segundos)
-reloadPageWithDelay(30000);
+reloadPageWithDelay(10000);
 contador = contador *4;
 while(speed < contador) {
-    if(speed > contador) {
+    if(currentScale > 18) {
         break;
     }
     increaseSpeed()

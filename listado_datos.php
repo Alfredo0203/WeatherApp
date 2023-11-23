@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Tabla de Datos con Filtro de Fechas</title>
+    <title>Tabla de Datos</title>
     <style>
     .styled-table {
     border-collapse: collapse;
@@ -45,6 +45,7 @@
     color: #009879;
 }
   </style>
+  <link rel="icon" href="img/sun.png">
 </head>
 <body>
 
@@ -126,7 +127,8 @@
             $fechaFiltro = $_POST['fechaFiltro'];
             $query = "SELECT * FROM datos WHERE DATE(fecha) = '$fechaFiltro' ORDER BY fecha DESC";
         } else {
-            $query = "SELECT * FROM datos ORDER BY fecha DESC";
+            $query = "SELECT * FROM datos ORDER BY fecha DESC limit 300";
+            echo "<div style='  height:20px; font-weight:bold; width:50%; padding-top: 5px; padding-bottom: 5px;margin-top:10px; margin-bottom: 10px'>Datos de ultima hora </div>";
         }
 
         // Realizar consulta a la base de datos

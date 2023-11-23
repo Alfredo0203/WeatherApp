@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promedios por hora</title>
+    <title>Promedios graficos</title>
  
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2"></script>
     <link rel="stylesheet" href="mainCss.css">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" href="img/sun.png">
 </head>
 <body>
     
@@ -69,15 +70,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || !isset($_POST['fecha'])) {
         $conexion = conectar();
 
         // Consulta SQL para obtener el promedio por hora y día
-        $query = "SELECT DATE_FORMAT(fecha, '%h:00:00 %p') AS hora, AVG(temperatura) AS promedio_temperatura, AVG(humedad) AS promedio_humedad,
-                                                                    AVG(velocidad) as promedio_velocidad, AVG(indiceUV) as promedio_indiceUV
-        FROM datos
-        WHERE DATE(fecha) = '$fecha'
-        GROUP BY hora
-        ORDER BY STR_TO_DATE(hora, '%h:%i:%s %p') ASC";
+        $query = "SELECT 
+        DATE_FORMAT(MAX(fecha), '%h:%i:00 %p') AS hora, 
+        AVG(temperatura) AS promedio_temperatura, 
+        AVG(humedad) AS promedio_humedad,
+        AVG(velocidad) AS promedio_velocidad, 
+        AVG(indiceUV) AS promedio_indiceUV
+    FROM datos
+    WHERE DATE(fecha) = '$fecha'
+    GROUP BY DATE(fecha), HOUR(fecha), MINUTE(fecha) DIV 15
+    ORDER BY MAX(fecha) ASC";
 
         // Ejecutar la consulta
         $result = mysqli_query($conexion, $query);
+
+        
+        // Consulta SQL mejorada
+        $sql = "SELECT 
+                    CONCAT(
+                        DATE_FORMAT(fecha, '%H:'),
+                        LPAD(15 * (MINUTE(fecha) DIV 15), 2, '00')
+                    ) AS intervalo,
+                    GROUP_CONCAT(indiceUV) AS valores,
+                    COUNT(*) AS frecuencia
+                FROM datos
+                WHERE DATE(fecha) = '$fecha'
+                GROUP BY intervalo";
+        
+        $resultados = $conexion->query($sql);
+           // Función para calcular la moda
+           function mode($arr){
+            $count = array_count_values($arr);
+            arsort($count);
+            return key($count);
+        }
+       // ...
+
+$modaIndiceArray = []; // Usar un nuevo array para almacenar todas las modas
+
+if ($resultados->num_rows > 0) {
+    // Mostrar los resultados detallados
+    while ($row = $resultados->fetch_assoc()) {
+        // Calcular la moda y almacenarla en el nuevo array
+        $modaIndice = mode(explode(',', $row["valores"]));
+        $modaIndiceArray[] = $modaIndice;
+
+    }
+} else {
+    echo "No se encontraron resultados para la fecha especificada.";
+}  
 
         // Verificar si se obtuvieron resultados
         if ($result) {
@@ -108,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || !isset($_POST['fecha'])) {
                 'promedios_temperatura' => $promedios_temperatura,
                 'promedios_humedad' => $promedios_humedad,
                 'promedios_velocidad' => $promedios_velocidad,
-                'promedios_indiceUV' => $promedios_indiceUV,
+                'promedios_indiceUV' => $modaIndiceArray ,
             ];
         } else {
             // En caso de error, mostrar un mensaje o manejar el error según sea necesario
@@ -197,7 +238,8 @@ if(existingChart) {
     else {
         temperatura2023.data =  promedios_velocidad;
         temperatura2023.label = "Velocidad: M/s";
-        humedad2023.label = "Indice %";
+        humedad2023.data =  promedios_indiceUV;
+        humedad2023.label = "Indice UV";
         document.getElementById('Btn1').style.backgroundColor = 'gray';
         document.getElementById('Btn2').style.backgroundColor = 'red';
     }

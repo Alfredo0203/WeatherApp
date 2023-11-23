@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
-<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" href="img/sun.png">
 <style>
       /* Agrega un contenedor que envuelva ambas columnas */
 .grid-container {
@@ -121,7 +121,8 @@
             </div>
        <div class="accelerate-container">
        <div class="static">Velocidad del viento <br><br>
-       180° respecto al norte
+       Angulo: <?= $row['angulo'] ?>° respecto al norte <br><br>
+       Direccion: <?= $row['direc'] ?> 
       </div>
        
             </div>
