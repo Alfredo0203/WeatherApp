@@ -4,7 +4,7 @@ function conectar(){
     $MYSQLHOST = $_ENV["MYSQLHOST"];
     $MYSQLUSER =  $_ENV["MYSQLUSER"];
     $MYSQLPASSWORD =  $_ENV["MYSQLPASSWORD"];
-    $MYSQLDATABASE =  $_ENV["MYSQLDATABASE"];
+    $MYSQL_DATABASE =  $_ENV["MYSQLDATABASE"];
     
     // Crear una conexión con la base de datos
     $con = mysqli_connect("$MYSQLHOST'", "$MYSQLUSER", "$MYSQLPASSWORD", "$MYSQLDATABASE");
