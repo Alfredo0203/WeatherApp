@@ -4,7 +4,7 @@ function conectar(){
     $servidor = "viaduct.proxy.rlwy.net";
     $usuario = "root";
     $password = "dcHDd1c-f3546e-HC2AB3Abgf4A3fd-5";
-    $base_datos = "estacion1";
+    $base_datos = "railway";
     
     // Crear una conexión con la base de datos
     $con = mysqli_connect($servidor, $usuario, $password, $base_datos);
