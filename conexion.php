@@ -1,9 +1,9 @@
 <?php
 
 function conectar(){
-    $servidor = "localhost";
+    $servidor = "viaduct.proxy.rlwy.net";
     $usuario = "root";
-    $password = "";
+    $password = "dcHDd1c-f3546e-HC2AB3Abgf4A3fd-5";
     $base_datos = "estacion1";
     
     // Crear una conexión con la base de datos
