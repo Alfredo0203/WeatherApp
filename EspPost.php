@@ -7,7 +7,7 @@ $con = conectar();
 echo "Solicitud recibida desde: " . $_SERVER['REMOTE_ADDR'] . "\n";
 
 if ($con) {
-    header('Access-Control-Allow-Origin: *'); // Permitir cualquier origen
+
     echo "Conexion con base de datos exitosa! ";
     
     if(isset($_POST['velocidad'])) {
