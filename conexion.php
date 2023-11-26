@@ -7,7 +7,7 @@ function conectar(){
     $MYSQLPORT = '25154';
 
     // Crear una conexión con la base de datos
-   $con = mysqli_connect($MYSQLHOST,"$MYSQLUSER, $MYSQLPASSWORD, $MYSQL_DATABASE, $MYSQLPORT);
+   $con = mysqli_connect($MYSQLHOST,$MYSQLUSER, $MYSQLPASSWORD, $MYSQL_DATABASE, $MYSQLPORT);
 
     // Verificar si hubo errores en la conexión
     if (mysqli_connect_errno()) {
