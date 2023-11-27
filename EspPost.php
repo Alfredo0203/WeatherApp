@@ -5,9 +5,9 @@ include'conexion.php'; //inclusion de archivo conxeion
 /* Verificacion de recepcion de todos los datos */
 $con = conectar();
 echo "Solicitud recibida desde: " . $_SERVER['REMOTE_ADDR'] . "\n";
-
+header('Access-Control-Allow-Origin: *');
 if ($con) {
-
+print_r($_SERVER);
     echo "Conexion con base de datos exitosa! ";
     var_dump($_POST);
     if(isset($_POST['velocidad'])) {
