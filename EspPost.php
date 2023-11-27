@@ -9,7 +9,7 @@ echo "Solicitud recibida desde: " . $_SERVER['REMOTE_ADDR'] . "\n";
 if ($con) {
 
     echo "Conexion con base de datos exitosa! ";
-    
+    print_r($_POST);
     if(isset($_POST['velocidad'])) {
         $velocidad = $_POST['velocidad'];
         echo "Estación meteorológica";
